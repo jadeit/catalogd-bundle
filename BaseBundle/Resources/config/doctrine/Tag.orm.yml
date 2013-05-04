@@ -1,0 +1,8 @@
+CatalogD\BaseBundle\Entity\Tag:
+    type: entity
+    table: null
+    manyToMany:
+        items:
+            targetEntity: Item
+            mappedBy: tags
+    lifecycleCallbacks: {  }

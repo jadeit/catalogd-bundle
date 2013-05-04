@@ -1,0 +1,7 @@
+parameters:
+#    catalog_d_base.example.class: CatalogD\BaseBundle\Example
+
+services:
+#    catalog_d_base.example:
+#        class: %catalog_d_base.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
