@@ -2,7 +2,6 @@
 
 namespace CatalogD\BaseBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -50,7 +49,6 @@ class Item
      */
     private $added;
 
-
     /**
      * Get id
      *
@@ -60,7 +58,6 @@ class Item
     {
         return $this->id;
     }
-
 
     /**
      * Set identifier
@@ -83,7 +80,6 @@ class Item
     {
         return $this->identifier;
     }
-
 
     /**
      * Get description
@@ -117,6 +113,7 @@ class Item
     public function setCategory($category)
     {
         $this->category = $category;
+
         return $this;
     }
 
@@ -142,6 +139,7 @@ class Item
         if ($this->tags->contains($tag) === false) {
             $this->tags[] = $tag;
         }
+
         return $this;
     }
 
@@ -155,9 +153,9 @@ class Item
     public function removeTag($tag)
     {
         $this->tags->removeElement($tag);
+
         return $this;
     }
-
 
     /**
      * Get tags
@@ -189,7 +187,7 @@ class Item
     /**
      * Set active
      *
-     * @param boolean $active
+     * @param  boolean $active
      * @return Item
      */
     public function setActive($active)
@@ -212,13 +210,14 @@ class Item
     /**
      * Set modified
      *
-     * @param \DateTime $modified
+     * @param  \DateTime $modified
      * @return Item
      */
     public function setModified($modified = null)
     {
         $modified = is_string($modified) || $modified === null ? new \DateTime($modified) : $modified;
         $this->modified = $modified;
+
         return $this;
     }
 
@@ -235,13 +234,14 @@ class Item
     /**
      * Set added
      *
-     * @param \DateTime $added
+     * @param  \DateTime $added
      * @return Item
      */
     public function setAdded($added = null)
     {
         $added = is_string($added) || $added === null ? new \DateTime($added) : $added;
         $this->added = $added;
+
         return $this;
     }
 
@@ -258,7 +258,7 @@ class Item
     /**
      * Extra validation for the entity.
      *
-     * @return object The current object
+     * @return object            The current object
      * @throws \RuntimeException If the model doesn't pass validation.
      */
     public function validate()

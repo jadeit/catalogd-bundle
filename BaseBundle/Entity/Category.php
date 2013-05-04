@@ -2,7 +2,6 @@
 
 namespace CatalogD\BaseBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -28,6 +27,7 @@ class Category extends Item
         if ($this->items->contains($item) === false) {
             $this->items[] = $item;
         }
+
         return $this;
     }
 
@@ -41,9 +41,9 @@ class Category extends Item
     public function removeItem($item)
     {
         $this->items->removeElement($item);
+
         return $this;
     }
-
 
     /**
      * Get items

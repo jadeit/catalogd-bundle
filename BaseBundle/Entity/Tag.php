@@ -2,7 +2,6 @@
 
 namespace CatalogD\BaseBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -28,6 +27,7 @@ class Tag extends Item
         if ($this->items->contains($item) === false) {
             $this->items[] = $item;
         }
+
         return $this;
     }
 
@@ -42,9 +42,9 @@ class Tag extends Item
     {
         $this->items->removeElement($item);
         $item->removeTag($this);
+
         return $this;
     }
-
 
     /**
      * Get items

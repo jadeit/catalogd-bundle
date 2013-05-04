@@ -1,3 +1,11 @@
-catalog_d_base_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: CatalogDBaseBundle:Default:index }
+CatalogDBaseBundle_item:
+    resource: "@CatalogDBaseBundle/Resources/config/routing/item.yml"
+    prefix:   /item
+
+CatalogDBaseBundle_category:
+    resource: "@CatalogDBaseBundle/Resources/config/routing/category.yml"
+    prefix:   /category
+
+CatalogDBaseBundle_tag:
+    resource: "@CatalogDBaseBundle/Resources/config/routing/tag.yml"
+    prefix:   /tag

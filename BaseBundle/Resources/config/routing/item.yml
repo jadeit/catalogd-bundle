@@ -1,0 +1,30 @@
+item:
+    pattern:  /
+    defaults: { _controller: "CatalogDBaseBundle:Item:index" }
+
+item_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "CatalogDBaseBundle:Item:show" }
+
+item_new:
+    pattern:  /new
+    defaults: { _controller: "CatalogDBaseBundle:Item:new" }
+
+item_create:
+    pattern:  /create
+    defaults: { _controller: "CatalogDBaseBundle:Item:create" }
+    requirements: { _method: post }
+
+item_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "CatalogDBaseBundle:Item:edit" }
+
+item_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "CatalogDBaseBundle:Item:update" }
+    requirements: { _method: post|put }
+
+item_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "CatalogDBaseBundle:Item:delete" }
+    requirements: { _method: post|delete }
