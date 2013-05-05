@@ -1,0 +1,17 @@
+{
+    "name": "jadeit/catalogd-bundle",
+    "type": "symfony-bundle",
+    "description": "A Bundle defining Items, Categories and Tags",
+    "keywords": ["base", "entities", "tags", "categories", "items"],
+    "homepage": "https://github.com/jadeit/catalogd-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jurgens du Toit",
+            "email": "jrgns@jadeit.co.za"
+        }
+    ],
+    "require": {
+
+    }
+}
