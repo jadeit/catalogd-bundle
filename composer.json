@@ -13,5 +13,8 @@
     ],
     "require": {
 
-    }
-}
+    },
+    "autoload": {
+        "psr-0": { "JadeIT\\CatalogDBundle": "" }
+    },
+    "target-dir": "JadeIT/TestBundle"}
