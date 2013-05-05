@@ -1,0 +1,30 @@
+category:
+    pattern:  /
+    defaults: { _controller: "JadeITCatalogDBundle:Category:index" }
+
+category_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "JadeITCatalogDBundle:Category:show" }
+
+category_new:
+    pattern:  /new
+    defaults: { _controller: "JadeITCatalogDBundle:Category:new" }
+
+category_create:
+    pattern:  /create
+    defaults: { _controller: "JadeITCatalogDBundle:Category:create" }
+    requirements: { _method: post }
+
+category_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "JadeITCatalogDBundle:Category:edit" }
+
+category_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "JadeITCatalogDBundle:Category:update" }
+    requirements: { _method: post|put }
+
+category_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "JadeITCatalogDBundle:Category:delete" }
+    requirements: { _method: post|delete }

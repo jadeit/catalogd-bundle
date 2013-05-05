@@ -1,8 +1,0 @@
-CatalogD\BaseBundle\Entity\Category:
-    type: entity
-    table: null
-    oneToMany:
-        items:
-            targetEntity: Item
-            mappedBy: category
-    lifecycleCallbacks: {  }

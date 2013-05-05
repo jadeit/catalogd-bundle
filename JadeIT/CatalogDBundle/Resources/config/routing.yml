@@ -1,0 +1,11 @@
+JadeITCatalogDBundle_item:
+    resource: "@JadeITCatalogDBundle/Resources/config/routing/item.yml"
+    prefix:   /item
+
+JadeITCatalogDBundle_category:
+    resource: "@JadeITCatalogDBundle/Resources/config/routing/category.yml"
+    prefix:   /category
+
+JadeITCatalogDBundle_tag:
+    resource: "@JadeITCatalogDBundle/Resources/config/routing/tag.yml"
+    prefix:   /tag

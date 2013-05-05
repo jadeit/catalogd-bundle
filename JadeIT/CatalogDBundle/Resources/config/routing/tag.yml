@@ -1,0 +1,30 @@
+tag:
+    pattern:  /
+    defaults: { _controller: "JadeITCatalogDBundle:Tag:index" }
+
+tag_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "JadeITCatalogDBundle:Tag:show" }
+
+tag_new:
+    pattern:  /new
+    defaults: { _controller: "JadeITCatalogDBundle:Tag:new" }
+
+tag_create:
+    pattern:  /create
+    defaults: { _controller: "JadeITCatalogDBundle:Tag:create" }
+    requirements: { _method: post }
+
+tag_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "JadeITCatalogDBundle:Tag:edit" }
+
+tag_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "JadeITCatalogDBundle:Tag:update" }
+    requirements: { _method: post|put }
+
+tag_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "JadeITCatalogDBundle:Tag:delete" }
+    requirements: { _method: post|delete }
