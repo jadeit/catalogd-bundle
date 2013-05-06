@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use JadeIT\CatalogDBundle\Entity\Item;
+use JadeIT\CatalogDBundle\Event\ItemEvent;
 use JadeIT\CatalogDBundle\Form\ItemType;
 
 /**
@@ -32,9 +33,12 @@ class ItemController extends Controller
 
         $entities = $em->getRepository('JadeITCatalogDBundle:Item')->findAll();
 
-        return $this->render('JadeITCatalogDBundle:Item:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        return $this->render(
+            'JadeITCatalogDBundle:Item:index.html.twig',
+            array(
+                'entities' => $entities,
+            )
+        );
     }
 
     /**
@@ -50,15 +54,25 @@ class ItemController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
+
+            // Fire the New Item Event
+            $event = new ItemEvent($entity);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch('jadeit.catalogd.events.item.new', $event);
+
+            // Delay the flush so that the event can deal with the new entity first
             $em->flush();
 
             return $this->redirect($this->generateUrl('item_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('JadeITCatalogDBundle:Item:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'JadeITCatalogDBundle:Item:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -70,10 +84,13 @@ class ItemController extends Controller
         $entity = new Item();
         $form   = $this->createForm(new ItemType(), $entity);
 
-        return $this->render('JadeITCatalogDBundle:Item:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'JadeITCatalogDBundle:Item:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -92,9 +109,13 @@ class ItemController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('JadeITCatalogDBundle:Item:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+        return $this->render(
+            'JadeITCatalogDBundle:Item:show.html.twig',
+            array(
+                'entity'      => $entity,
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
     /**
@@ -114,11 +135,14 @@ class ItemController extends Controller
         $editForm = $this->createForm(new ItemType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('JadeITCatalogDBundle:Item:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render(
+            'JadeITCatalogDBundle:Item:edit.html.twig',
+            array(
+                'entity'      => $entity,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
     /**
@@ -141,16 +165,26 @@ class ItemController extends Controller
 
         if ($editForm->isValid()) {
             $em->persist($entity);
+
+            // Fire the Updated Item Event
+            $event = new ItemEvent($entity);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch('jadeit.catalogd.events.item.update', $event);
+
+            // Delay the flush so that the event can deal with the updated entity first
             $em->flush();
 
             return $this->redirect($this->generateUrl('item_edit', array('id' => $id)));
         }
 
-        return $this->render('JadeITCatalogDBundle:Item:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render(
+            'JadeITCatalogDBundle:Item:edit.html.twig',
+            array(
+                'entity'      => $entity,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
     /**
@@ -171,6 +205,13 @@ class ItemController extends Controller
             }
 
             $em->remove($entity);
+
+            // Fire the New Item Event
+            $event = new ItemEvent($entity);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch('jadeit.catalogd.events.item.delete', $event);
+
+            // Delay the flush so that the event can deal with the deleted entity first
             $em->flush();
         }
 
@@ -188,7 +229,6 @@ class ItemController extends Controller
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
