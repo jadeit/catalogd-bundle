@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use JadeIT\CatalogDBundle\Entity\Tag;
+use JadeIT\CatalogDBundle\Event\TagEvent;
 use JadeIT\CatalogDBundle\Form\TagType;
 
 /**
@@ -50,6 +51,13 @@ class TagController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
+
+            // Fire the New Tag Event
+            $event = new TagEvent($entity);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch('jadeit.catalogd.events.tag.new', $event);
+
+            // Delay the flush so that the event can deal with the new entity first
             $em->flush();
 
             return $this->redirect($this->generateUrl('tag_show', array('id' => $entity->getId())));
@@ -141,6 +149,13 @@ class TagController extends Controller
 
         if ($editForm->isValid()) {
             $em->persist($entity);
+
+            // Fire the Updated Tag Event
+            $event = new TagEvent($entity);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch('jadeit.catalogd.events.tag.update', $event);
+
+            // Delay the flush so that the event can deal with the updated entity first
             $em->flush();
 
             return $this->redirect($this->generateUrl('tag_edit', array('id' => $id)));
@@ -171,6 +186,13 @@ class TagController extends Controller
             }
 
             $em->remove($entity);
+
+            // Fire the Delete Tag Event
+            $event = new TagEvent($entity);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch('jadeit.catalogd.events.tag.delete', $event);
+
+            // Delay the flush so that the event can deal with the deleted entity first
             $em->flush();
         }
 

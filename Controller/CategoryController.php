@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use JadeIT\CatalogDBundle\Entity\Category;
+use JadeIT\CatalogDBundle\Event\CategoryEvent;
 use JadeIT\CatalogDBundle\Form\CategoryType;
 
 /**
@@ -50,6 +51,13 @@ class CategoryController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
+
+            // Fire the New Category Event
+            $event = new CategoryEvent($entity);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch('jadeit.catalogd.events.category.new', $event);
+
+            // Delay the flush so that the event can deal with the new entity first
             $em->flush();
 
             return $this->redirect($this->generateUrl('category_show', array('id' => $entity->getId())));
@@ -141,6 +149,13 @@ class CategoryController extends Controller
 
         if ($editForm->isValid()) {
             $em->persist($entity);
+
+            // Fire the Updated Category Event
+            $event = new CategoryEvent($entity);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch('jadeit.catalogd.events.category.update', $event);
+
+            // Delay the flush so that the event can deal with the updated entity first
             $em->flush();
 
             return $this->redirect($this->generateUrl('category_edit', array('id' => $id)));
@@ -171,6 +186,13 @@ class CategoryController extends Controller
             }
 
             $em->remove($entity);
+
+            // Fire the Delete Category Event
+            $event = new CategoryEvent($entity);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch('jadeit.catalogd.events.category.delete', $event);
+
+            // Delay the flush so that the event can deal with the deleted entity first
             $em->flush();
         }
 

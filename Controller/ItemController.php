@@ -206,7 +206,7 @@ class ItemController extends Controller
 
             $em->remove($entity);
 
-            // Fire the New Item Event
+            // Fire the Delete Item Event
             $event = new ItemEvent($entity);
             $dispatcher = $this->get('event_dispatcher');
             $dispatcher->dispatch('jadeit.catalogd.events.item.delete', $event);
