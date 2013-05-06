@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Tag
  */
-class Tag extends Item
+class Tag extends Base
 {
     /**
      * @var ArrayCollection

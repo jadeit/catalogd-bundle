@@ -21,12 +21,9 @@ class ItemType extends AbstractType
         $builder
             ->add('identifier')
             ->add('description')
-            ->add('active')
-            ->add('modified')
-            ->add('added')
             ->add('category')
             ->add('tags')
-        ;
+            ->add('active');
         $options = array(
             array('form_type' => 'form-horizontal'),
         );
@@ -34,9 +31,9 @@ class ItemType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'JadeIT\CatalogDBundle\Entity\Item'
-        ));
+        $resolver->setDefaults(
+            array('data_class' => 'JadeIT\CatalogDBundle\Entity\Item')
+        );
     }
 
     public function getName()

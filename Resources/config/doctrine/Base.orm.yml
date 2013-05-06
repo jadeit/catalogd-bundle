@@ -1,0 +1,22 @@
+JadeIT\CatalogDBundle\Entity\Base:
+    type: mappedSuperclass
+    table: null
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        identifier:
+            type: string
+        description:
+            type: text
+        active:
+            type: boolean
+        modified:
+            type: datetime
+        added:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ setAdded, setModified, validate ]
+        preUpdate: [ setModified, validate ]

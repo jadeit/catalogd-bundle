@@ -10,15 +10,28 @@
 
 namespace JadeIT\CatalogDBundle\Form;
 
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CategoryType extends ItemType
+class CategoryType extends AbstractType
 {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('identifier')
+            ->add('description')
+            ->add('active');
+        $options = array(
+            array('form_type' => 'form-horizontal'),
+        );
+    }
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'JadeIT\CatalogDBundle\Entity\Category'
-        ));
+        $resolver->setDefaults(
+            array('data_class' => 'JadeIT\CatalogDBundle\Entity\Category')
+        );
     }
 
     public function getName()

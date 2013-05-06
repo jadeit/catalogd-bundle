@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Category
  */
-class Category extends Item
+class Category extends Base
 {
     /**
      * @var ArrayCollection

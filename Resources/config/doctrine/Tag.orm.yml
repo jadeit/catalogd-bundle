@@ -5,4 +5,3 @@ JadeIT\CatalogDBundle\Entity\Tag:
         items:
             targetEntity: Item
             mappedBy: tags
-    lifecycleCallbacks: {  }

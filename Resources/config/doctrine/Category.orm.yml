@@ -5,4 +5,3 @@ JadeIT\CatalogDBundle\Entity\Category:
         items:
             targetEntity: Item
             mappedBy: category
-    lifecycleCallbacks: {  }
