@@ -11,7 +11,16 @@
 namespace JadeIT\CatalogDBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use JadeIT\CatalogDBundle\Event\EventSubscriber;
 
 class JadeITCatalogDBundle extends Bundle
 {
+    public function boot()
+    {
+        parent::boot();
+
+        $subscriber = $this->container->get('event_subscriber');
+        $this->container->get('event_dispatcher')->addSubscriber($subscriber);
+    }
 }
