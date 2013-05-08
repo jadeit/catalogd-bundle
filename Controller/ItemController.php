@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JadeIT\CatalogDBundle\Entity\Item;
 use JadeIT\CatalogDBundle\Event\ItemEvent;
 use JadeIT\CatalogDBundle\Form\ItemType;
+use JadeIT\CatalogDBundle\Event\CatalogDEvent;
 
 /**
  * Item controller.
@@ -58,7 +59,7 @@ class ItemController extends Controller
             // Fire the New Item Event
             $event = new ItemEvent($entity);
             $dispatcher = $this->get('event_dispatcher');
-            $dispatcher->dispatch('jadeit.catalogd.events.item.new', $event);
+            $dispatcher->dispatch(CatalogDEvent::ITEM_CREATE, $event);
 
             // Delay the flush so that the event can deal with the new entity first
             $em->flush();
@@ -106,6 +107,10 @@ class ItemController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
+        // Fire the Read Item Event
+        $event = new ItemEvent($entity);
+        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher->dispatch(CatalogDEvent::ITEM_READ, $event);
 
         $deleteForm = $this->createDeleteForm($id);
 
@@ -169,7 +174,7 @@ class ItemController extends Controller
             // Fire the Updated Item Event
             $event = new ItemEvent($entity);
             $dispatcher = $this->get('event_dispatcher');
-            $dispatcher->dispatch('jadeit.catalogd.events.item.update', $event);
+            $dispatcher->dispatch(CatalogDEvent::ITEM_UPDATE, $event);
 
             // Delay the flush so that the event can deal with the updated entity first
             $em->flush();
@@ -209,7 +214,7 @@ class ItemController extends Controller
             // Fire the Delete Item Event
             $event = new ItemEvent($entity);
             $dispatcher = $this->get('event_dispatcher');
-            $dispatcher->dispatch('jadeit.catalogd.events.item.delete', $event);
+            $dispatcher->dispatch(CatalogDEvent::ITEM_DELETE, $event);
 
             // Delay the flush so that the event can deal with the deleted entity first
             $em->flush();

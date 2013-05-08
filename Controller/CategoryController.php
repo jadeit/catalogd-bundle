@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JadeIT\CatalogDBundle\Entity\Category;
 use JadeIT\CatalogDBundle\Event\CategoryEvent;
 use JadeIT\CatalogDBundle\Form\CategoryType;
+use JadeIT\CatalogDBundle\Event\CatalogDEvent;
 
 /**
  * Category controller.
@@ -55,7 +56,7 @@ class CategoryController extends Controller
             // Fire the New Category Event
             $event = new CategoryEvent($entity);
             $dispatcher = $this->get('event_dispatcher');
-            $dispatcher->dispatch('jadeit.catalogd.events.category.new', $event);
+            $dispatcher->dispatch(CatalogDEvent::CATEGORY_CREATE, $event);
 
             // Delay the flush so that the event can deal with the new entity first
             $em->flush();
@@ -97,6 +98,10 @@ class CategoryController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Category entity.');
         }
+        // Fire the Read Category Event
+        $event = new CategoryEvent($entity);
+        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher->dispatch(CatalogDEvent::CATEGORY_READ, $event);
 
         $deleteForm = $this->createDeleteForm($id);
 
@@ -153,7 +158,7 @@ class CategoryController extends Controller
             // Fire the Updated Category Event
             $event = new CategoryEvent($entity);
             $dispatcher = $this->get('event_dispatcher');
-            $dispatcher->dispatch('jadeit.catalogd.events.category.update', $event);
+            $dispatcher->dispatch(CatalogDEvent::CATEGORY_UPDATE, $event);
 
             // Delay the flush so that the event can deal with the updated entity first
             $em->flush();
@@ -190,7 +195,7 @@ class CategoryController extends Controller
             // Fire the Delete Category Event
             $event = new CategoryEvent($entity);
             $dispatcher = $this->get('event_dispatcher');
-            $dispatcher->dispatch('jadeit.catalogd.events.category.delete', $event);
+            $dispatcher->dispatch(CatalogDEvent::CATEGORY_DELETE, $event);
 
             // Delay the flush so that the event can deal with the deleted entity first
             $em->flush();

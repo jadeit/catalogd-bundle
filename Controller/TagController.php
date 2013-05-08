@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JadeIT\CatalogDBundle\Entity\Tag;
 use JadeIT\CatalogDBundle\Event\TagEvent;
 use JadeIT\CatalogDBundle\Form\TagType;
+use JadeIT\CatalogDBundle\Event\CatalogDEvent;
 
 /**
  * Tag controller.
@@ -55,7 +56,7 @@ class TagController extends Controller
             // Fire the New Tag Event
             $event = new TagEvent($entity);
             $dispatcher = $this->get('event_dispatcher');
-            $dispatcher->dispatch('jadeit.catalogd.events.tag.new', $event);
+            $dispatcher->dispatch(CatalogDEvent::TAG_CREATE, $event);
 
             // Delay the flush so that the event can deal with the new entity first
             $em->flush();
@@ -93,6 +94,10 @@ class TagController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('JadeITCatalogDBundle:Tag')->find($id);
+        // Fire the Read Tag Event
+        $event = new TagEvent($entity);
+        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher->dispatch(CatalogDEvent::TAG_READ, $event);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tag entity.');
@@ -153,7 +158,7 @@ class TagController extends Controller
             // Fire the Updated Tag Event
             $event = new TagEvent($entity);
             $dispatcher = $this->get('event_dispatcher');
-            $dispatcher->dispatch('jadeit.catalogd.events.tag.update', $event);
+            $dispatcher->dispatch(CatalogDEvent::TAG_UPDATE, $event);
 
             // Delay the flush so that the event can deal with the updated entity first
             $em->flush();
@@ -190,7 +195,7 @@ class TagController extends Controller
             // Fire the Delete Tag Event
             $event = new TagEvent($entity);
             $dispatcher = $this->get('event_dispatcher');
-            $dispatcher->dispatch('jadeit.catalogd.events.tag.delete', $event);
+            $dispatcher->dispatch(CatalogDEvent::TAG_DELETE, $event);
 
             // Delay the flush so that the event can deal with the deleted entity first
             $em->flush();
