@@ -1,4 +1,13 @@
 <?php
+/**
+ * This file is part of the CatalogD package.
+ *
+ * Copyright (c) Jade IT <jrgns@jadeit.co.za>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace JadeIT\CatalogDBundle\Event;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -16,21 +25,17 @@ class EventSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
-            'jadeit.catalogd.events.category.new' => array(array('onCatalogDEvent', 0)),
-            'jadeit.catalogd.events.category.update' => array(array('onCatalogDEvent', 0)),
-            'jadeit.catalogd.events.category.delete' => array(array('onCatalogDEvent', 0)),
-            'jadeit.catalogd.events.tag.new' => array(array('onCatalogDEvent', 0)),
-            'jadeit.catalogd.events.tag.update' => array(array('onCatalogDEvent', 0)),
-            'jadeit.catalogd.events.tag.delete' => array(array('onCatalogDEvent', 0)),
-            'jadeit.catalogd.events.item.new' => array(array('onCatalogDEvent', 0)),
-            'jadeit.catalogd.events.item.update' => array(array('onCatalogDEvent', 0)),
-            'jadeit.catalogd.events.item.delete' => array(array('onCatalogDEvent', 0)),
-        );
+        $reflection = new \ReflectionClass('\JadeIT\CatalogDBundle\Event\CatalogDEvent');
+
+        $keys = array_values($reflection->GetConstants());
+        $value = array(array('onCatalogDEvent', 0));
+        $values = array_fill(0, count($keys), $value);
+        $result = array_combine($keys, $values);
+        return $result;
     }
 
     public function onCatalogDEvent(Event $event)
     {
-        $this->logger->debug('Fired Event ' . $event->getName());
+        $this->logger->debug(sprintf('Fired event "%s"', $event->getName()));
     }
 }
