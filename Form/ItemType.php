@@ -22,8 +22,8 @@ class ItemType extends AbstractType
             ->add('identifier')
             ->add('description')
             ->add('category')
-            ->add('tags')
-            ->add('active');
+            ->add('tags', null, array('required' => false))
+            ->add('active', null, array('required' => false));
         $options = array(
             array('form_type' => 'form-horizontal'),
         );

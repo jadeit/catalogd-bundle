@@ -21,7 +21,7 @@ class CategoryType extends AbstractType
         $builder
             ->add('identifier')
             ->add('description')
-            ->add('active');
+            ->add('active', null, array('required' => false));
         $options = array(
             array('form_type' => 'form-horizontal'),
         );
