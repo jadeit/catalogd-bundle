@@ -14,7 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Psr\Log\LoggerInterface;
 
-class EventSubscriber implements EventSubscriberInterface
+class CatalogDSubscriber implements EventSubscriberInterface
 {
     private $logger;
 

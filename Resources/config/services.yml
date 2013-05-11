@@ -1,5 +1,5 @@
 parameters:
-    jadeit.catalogd.event_subscriber.class: JadeIT\CatalogDBundle\Event\EventSubscriber
+    jadeit.catalogd.event_subscriber.class: JadeIT\CatalogDBundle\Event\CatalogDSubscriber
 
 services:
     event_subscriber:
