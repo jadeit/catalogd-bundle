@@ -1,5 +1,5 @@
 JadeIT\CatalogDBundle\Entity\Item:
-    type: entity
+    type: mappedSuperclass
     table: null
     fields:
     manyToOne:

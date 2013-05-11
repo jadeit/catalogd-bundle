@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Item
  */
-class Item extends Base
+abstract class Item extends Base
 {
     /**
      * @var Category
