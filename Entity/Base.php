@@ -33,7 +33,7 @@ abstract class Base
     /**
      * @var boolean
      */
-    private $active;
+    private $active = true;
 
     /**
      * @var \DateTime
