@@ -22,6 +22,11 @@ class Category extends Base
      */
     private $items;
 
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+    }
+
     /**
      * Add item
      *

@@ -56,7 +56,7 @@ abstract class Item extends Base
      *
      * @param Tag $tag
      *
-     * @return Category
+     * @return Item
      */
     public function addTag($tag)
     {
@@ -72,7 +72,7 @@ abstract class Item extends Base
      *
      * @param Tag $tag
      *
-     * @return Category
+     * @return Item
      */
     public function removeTag($tag)
     {
@@ -96,7 +96,7 @@ abstract class Item extends Base
      *
      * @param Iterable $tags
      *
-     * @return Category
+     * @return Item
      */
     public function setTags($tags)
     {

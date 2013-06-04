@@ -21,8 +21,8 @@ class JadeITCatalogDBundle extends Bundle
         parent::boot();
 
         if ($this->container->getParameter('kernel.debug')) {
-            $subscriber = $this->container->get('event_subscriber');
-            $this->container->get('event_dispatcher')->addSubscriber($subscriber);
+            //$subscriber = $this->container->get('event_subscriber');
+            //$this->container->get('event_dispatcher')->addSubscriber($subscriber);
         }
     }
 }

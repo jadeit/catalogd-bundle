@@ -22,12 +22,17 @@ class Tag extends Base
      */
     private $items;
 
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+    }
+
     /**
      * Add item
      *
      * @param Item $item
      *
-     * @return Category
+     * @return Tag
      */
     public function addItem($item)
     {
@@ -44,7 +49,7 @@ class Tag extends Base
      *
      * @param Item $item
      *
-     * @return Category
+     * @return Tag
      */
     public function removeItem($item)
     {
@@ -69,7 +74,7 @@ class Tag extends Base
      *
      * @param Iterable $items
      *
-     * @return Category
+     * @return Tag
      */
     public function setItems($items)
     {

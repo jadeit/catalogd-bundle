@@ -130,7 +130,7 @@ abstract class Base
      */
     public function setModified($modified = null)
     {
-        $modified = is_string($modified) || $modified === null ? new \DateTime($modified) : $modified;
+        $modified = is_scalar($modified) || $modified === null ? new \DateTime($modified) : $modified;
         $this->modified = $modified;
 
         return $this;
@@ -154,7 +154,7 @@ abstract class Base
      */
     public function setAdded($added = null)
     {
-        $added = is_string($added) || $added === null ? new \DateTime($added) : $added;
+        $added = is_scalar($added) || $added === null ? new \DateTime($added) : $added;
         $this->added = $added;
 
         return $this;
@@ -171,21 +171,21 @@ abstract class Base
     }
 
     /**
-     * Extra validation for the entity.
-     *
-     * @return object            The current object
-     * @throws \RuntimeException If the model doesn't pass validation.
-     */
-    public function validate()
-    {
-        return $this;
-    }
-
-    /**
      * String representation of the item
      */
     public function __toString()
     {
         return $this->getIdentifier();
+    }
+
+    public function prePersist()
+    {
+        $this->setAdded();
+        $this->setModified();
+    }
+
+    public function preUpdate()
+    {
+        $this->setModified();
     }
 }

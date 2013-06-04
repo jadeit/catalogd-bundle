@@ -11,6 +11,7 @@ JadeIT\CatalogDBundle\Entity\Base:
             type: string
         description:
             type: text
+            nullable: true
         active:
             type: boolean
         modified:
@@ -18,5 +19,5 @@ JadeIT\CatalogDBundle\Entity\Base:
         added:
             type: datetime
     lifecycleCallbacks:
-        prePersist: [ setAdded, setModified, validate ]
-        preUpdate: [ setModified, validate ]
+        prePersist: [ prePersist ]
+        preUpdate: [ preUpdate ]
