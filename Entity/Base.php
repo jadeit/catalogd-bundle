@@ -167,6 +167,9 @@ abstract class Base
      */
     public function getAdded()
     {
+        if (empty($this->added)) {
+            $this->setAdded();
+        }
         return $this->added;
     }
 
@@ -180,7 +183,9 @@ abstract class Base
 
     public function prePersist()
     {
-        $this->setAdded();
+        if (empty($this->added)) {
+            $this->setAdded();
+        }
         $this->setModified();
     }
 
