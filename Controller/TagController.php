@@ -163,7 +163,7 @@ class TagController extends Controller
             // Delay the flush so that the event can deal with the updated entity first
             $em->flush();
 
-            return $this->redirect($this->generateUrl('tag_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('tag_show', array('id' => $id)));
         }
 
         return $this->render('JadeITCatalogDBundle:Tag:edit.html.twig', array(

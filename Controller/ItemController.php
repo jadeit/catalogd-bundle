@@ -179,7 +179,7 @@ class ItemController extends Controller
             // Delay the flush so that the event can deal with the updated entity first
             $em->flush();
 
-            return $this->redirect($this->generateUrl('item_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('item_show', array('id' => $id)));
         }
 
         return $this->render(

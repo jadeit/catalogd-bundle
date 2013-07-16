@@ -163,7 +163,7 @@ class CategoryController extends Controller
             // Delay the flush so that the event can deal with the updated entity first
             $em->flush();
 
-            return $this->redirect($this->generateUrl('category_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('category_show', array('id' => $id)));
         }
 
         return $this->render('JadeITCatalogDBundle:Category:edit.html.twig', array(
