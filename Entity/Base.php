@@ -70,11 +70,23 @@ abstract class Base
     /**
      * Get identifier
      *
+     * Return canonical identification if no identifier is provided.
+     *
      * @return string
      */
     public function getIdentifier()
     {
-        return $this->identifier;
+        return $this->identifier === null ? $this->getCanonical() : $this->identifier;
+    }
+
+    /**
+     * Return information that canonically identifies the entity.
+     *
+     * @return string
+     */
+    public function getCanonical()
+    {
+        return null;
     }
 
     /**
